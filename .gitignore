@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Ignore non-example config that contains secret keys
+config.json
+
+# Also ignore cached Spotify credentials
+.cache-*
