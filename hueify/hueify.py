@@ -87,16 +87,24 @@ def main():
 				vecs, dist = scipy.cluster.vq.vq(ar, codes)         # assign codes
 				counts, bins = scipy.histogram(vecs, len(codes))    # count occurrences
 
-				index_max = scipy.argmax(counts)                    # find most frequent
-				peak = codes[index_max]
-				
-				print(peak)
-				peak = [x / 255 for x in peak]
-				print(peak)
-				color = colorsys.rgb_to_hsv(*peak)
-				print(color)
-				color = [int(color[0]*65535), int(color[1]*254), int(color[2]*253 + 1)]
-				print(color)
+				goodColor = False
+				color = None
+				while not goodColor:
+					index_max = scipy.argmax(counts)                    # find most frequent
+					peak = codes[index_max]
+					
+					print(peak)
+					peak = [x / 255 for x in peak]
+					print(peak)
+					color = colorsys.rgb_to_hsv(*peak)
+					print(color)
+					color = [int(color[0]*65535), int(color[1]*254), int(color[2]*253 + 1)]
+					print(color)
+					if color[1] >= conf["hueify"]["thresh_sat"] and color[2] >= conf["hueify"]["thresh_bri"]:
+						goodColor = True
+					else:
+						counts[index_max] = -1;
+						codes[index_max] = None;
 
 				if conf["hueify"]["force_bright"]:
 					color[2] = 254

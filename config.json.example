@@ -13,10 +13,12 @@
 			"client_id": "hex_string_goes_here",
 			"client_secret": "hex_string_goes_here",
 			"redirect_uri": "http://localhost/"
-		}
+		},
 
 	"hueify":
 		{
-			"force_bright": true
+			"force_bright": true,
+			"thresh_sat": 60,
+			"thresh_bri": 50
 		}
 }
